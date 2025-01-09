@@ -1,4 +1,4 @@
-package com.course.checkbankcard.ui.screens
+package com.course.checkbankcard.presentation.screens
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,9 +14,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.course.domain.model.BankInfo
-import com.course.domain.model.BinInfo
-import com.course.domain.model.CountryInfo
 
 @Preview(showBackground = true)
 @Composable

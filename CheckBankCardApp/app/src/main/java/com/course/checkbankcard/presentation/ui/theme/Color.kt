@@ -1,4 +1,4 @@
-package com.course.checkbankcard.ui.theme
+package com.course.checkbankcard.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

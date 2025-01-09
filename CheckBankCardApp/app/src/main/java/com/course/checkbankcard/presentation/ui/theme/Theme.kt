@@ -1,4 +1,4 @@
-package com.course.checkbankcard.ui.theme
+package com.course.checkbankcard.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build
