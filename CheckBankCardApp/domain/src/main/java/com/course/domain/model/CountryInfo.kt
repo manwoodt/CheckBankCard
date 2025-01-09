@@ -1,4 +1,4 @@
-package com.course.checkbankcard.model
+package com.course.domain.model
 
 data class CountryInfo(
     val name :String,

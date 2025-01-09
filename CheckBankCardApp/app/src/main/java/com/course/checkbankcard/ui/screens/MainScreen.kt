@@ -14,17 +14,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.course.checkbankcard.model.BankInfo
-import com.course.checkbankcard.model.BinInfo
-import com.course.checkbankcard.model.CountryInfo
+import com.course.domain.model.BankInfo
+import com.course.domain.model.BinInfo
+import com.course.domain.model.CountryInfo
 
 @Preview(showBackground = true)
 @Composable
 fun MainScreen(){
-    val sampleBinInfo = BinInfo(
-        country = CountryInfo("Россия", 55, 37),
+    val sampleBinInfo = com.course.domain.model.BinInfo(
+        country = com.course.domain.model.CountryInfo("Россия", 55, 37),
         scheme = "Visa",
-        bank = BankInfo("Сбербанк", "www.sberbank.ru", "+7 800 555 55 50", "Москва")
+        bank = com.course.domain.model.BankInfo(
+            "Сбербанк",
+            "www.sberbank.ru",
+            "+7 800 555 55 50",
+            "Москва"
+        )
     )
     Column {
         InputCardNumber()
@@ -65,7 +70,7 @@ fun FetchInfoButton(onClick: () -> Unit) {
 }
 
 @Composable
-fun ShowInformationOfCard(binInfo: BinInfo){
+fun ShowInformationOfCard(binInfo: com.course.domain.model.BinInfo){
     Column {
         Text(text = "Страна: ${binInfo.country.name}")
         Text(text = "Координаты: ${binInfo.country.latitude},  ${binInfo.country.longitude}")
