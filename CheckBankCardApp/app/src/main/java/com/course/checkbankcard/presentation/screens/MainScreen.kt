@@ -17,7 +17,12 @@ import androidx.compose.ui.unit.dp
 
 @Preview(showBackground = true)
 @Composable
-fun MainScreen(){
+fun MainScreenPreview() {
+MainScreen(Modifier)
+}
+
+@Composable
+fun MainScreen(modifier: Modifier){
     val sampleBinInfo = com.course.domain.model.BinInfo(
         country = com.course.domain.model.CountryInfo("Россия", 55, 37),
         scheme = "Visa",
@@ -28,7 +33,7 @@ fun MainScreen(){
             "Москва"
         )
     )
-    Column {
+    Column(modifier) {
         InputCardNumber()
         FetchInfoButton {  }
         ShowInformationOfCard(sampleBinInfo)
