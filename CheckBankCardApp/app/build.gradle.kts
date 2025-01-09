@@ -59,10 +59,12 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
 
-
     implementation (libs.koin.core)
     implementation (libs.koin.android)
     implementation (libs.koin.androidx.compose)
+
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
