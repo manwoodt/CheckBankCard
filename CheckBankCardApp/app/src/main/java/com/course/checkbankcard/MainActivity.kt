@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
+import com.course.checkbankcard.presentation.screens.AppNavigation
 import com.course.checkbankcard.presentation.screens.MainScreen
 import com.course.checkbankcard.presentation.ui.theme.CheckBankCardTheme
 
@@ -17,12 +18,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CheckBankCardTheme {
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    content = { paddingValues ->
-                        MainScreen(Modifier.padding(paddingValues))
-                    }
-                )
+                AppNavigation()
             }
         }
     }

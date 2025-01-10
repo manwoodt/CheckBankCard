@@ -15,7 +15,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.course.checkbankcard.presentation.viewModels.HistoryScreenViewModel
 import com.course.checkbankcard.presentation.viewModels.MainScreenViewModel
+import com.course.domain.model.BinHistoryItem
 import com.course.domain.model.BinInfo
 import org.koin.androidx.compose.koinViewModel
 
@@ -27,7 +30,11 @@ import org.koin.androidx.compose.koinViewModel
 //}
 
 @Composable
-fun MainScreen(modifier: Modifier, viewModel: MainScreenViewModel = koinViewModel()) {
+fun MainScreen(
+    navController: NavController,
+    viewModel: MainScreenViewModel = koinViewModel(),
+    historyViewModel: HistoryScreenViewModel = koinViewModel()
+) {
 
     var inputBinNumber by remember { mutableStateOf("") }
 
@@ -46,19 +53,23 @@ fun MainScreen(modifier: Modifier, viewModel: MainScreenViewModel = koinViewMode
 //        )
 //    )
 
-    Column(modifier) {
+    Column(modifier = Modifier.padding(16.dp)) {
         InputCardNumber(
             inputBinNumber = inputBinNumber,
             onInputChange = { inputBinNumber = it }
         )
 
         FetchInfoButton {
-            viewModel.fetchBinInfo(inputBinNumber)
+            viewModel.fetchBinInfo(inputBinNumber.trim())
         }
         binInfo?.let {
             ShowInformationOfCard(it)
+            val binHistoryItem = BinHistoryItem(binNumber = inputBinNumber, binInfo = it)
+            historyViewModel.addBinHistory(binHistoryItem)
         }
         ErrorDisplay(errorMessage)
+
+        ButtonToHistoryScreen(navController)
     }
 
 }
@@ -73,7 +84,7 @@ fun InputCardNumber(inputBinNumber: String, onInputChange: (String) -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-        label = { Text("Enter the first 6 to 8 digits of a card number (BIN/IIN)") }
+        label = { Text("Введите первые 6-8 цифр номера карты (BIN/IIN)") }
     )
 
 }
@@ -108,4 +119,14 @@ fun ShowInformationOfCard(binInfo: BinInfo) {
 fun ErrorDisplay(error: String?) {
     if (error != null) Text(text = "Ошибка: $error")
     println(error)
+}
+
+@Composable
+fun ButtonToHistoryScreen(navController: NavController) {
+    Button(
+        onClick = { navController.navigate("history_screen") },
+        modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
+    ) {
+        Text("Перейти к истории")
+    }
 }

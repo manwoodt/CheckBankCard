@@ -26,7 +26,7 @@ class MainScreenViewModel(
                 val result = withContext(Dispatchers.IO) {
                     getBinInfoUseCase(bin)
                 }
-                _binInfo.value = result
+                _binInfo.postValue(result)
                 _errorMessage.value = null
             }
             catch (e:Exception ){
