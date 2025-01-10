@@ -14,7 +14,7 @@ val appModule = module {
 
     single {
         Retrofit.Builder()
-            .baseUrl("https://binlist.net/")
+            .baseUrl("https://lookup.binlist.net/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(BinApiService::class.java)
