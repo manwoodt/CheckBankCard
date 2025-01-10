@@ -8,21 +8,29 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.course.checkbankcard.presentation.viewModels.MainScreenViewModel
+import org.koin.viewmodel.getViewModelKey
 
-@Preview(showBackground = true)
-@Composable
-fun MainScreenPreview() {
-MainScreen(Modifier)
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun MainScreenPreview() {
+//MainScreen(Modifier,)
+//}
 
 @Composable
-fun MainScreen(modifier: Modifier){
+fun MainScreen(modifier: Modifier, viewModel: MainScreenViewModel= getViewModel()){
+
+    val binInfo by viewModel.binInfo.observeAsState()
+    val errorMessage by viewModel.errorMessage.observeAsState(null)
+
+
     val sampleBinInfo = com.course.domain.model.BinInfo(
         country = com.course.domain.model.CountryInfo("Россия", 55, 37),
         scheme = "Visa",
@@ -35,9 +43,13 @@ fun MainScreen(modifier: Modifier){
     )
     Column(modifier) {
         InputCardNumber()
-        FetchInfoButton {  }
-        ShowInformationOfCard(sampleBinInfo)
-        ErrorDisplay("")
+
+        val binNumber = "4567 3445"
+        FetchInfoButton {
+            viewModel.fetchBinInfo(binNumber)
+        }
+        binInfo?.let { ShowInformationOfCard(it) }
+        ErrorDisplay(errorMessage)
     }
 
 }
@@ -86,6 +98,6 @@ fun ShowInformationOfCard(binInfo: com.course.domain.model.BinInfo){
 
 
 @Composable
-fun ErrorDisplay(error: String) {
-    Text(text = "Ошибка: $error")
+fun ErrorDisplay(error: String?) {
+   if(error != null) Text(text = "Ошибка: $error")
 }
