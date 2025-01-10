@@ -1,6 +1,8 @@
 package com.course.checkbankcard.di
 
+import com.course.checkbankcard.presentation.viewModels.HistoryScreenViewModel
 import com.course.checkbankcard.presentation.viewModels.MainScreenViewModel
+import com.course.data.DataStoreManager
 import com.course.data.api.BinApiService
 import com.course.data.repositoryImpl.BinRepositoryImpl
 import com.course.domain.repository.BinRepository
@@ -23,5 +25,8 @@ val appModule = module {
     single<BinRepository> { BinRepositoryImpl(get()) }
     factory { GetBinInfoUseCase(get()) }
 
+    single { DataStoreManager(get()) }
+
     viewModel { MainScreenViewModel(get()) }
+    viewModel { HistoryScreenViewModel(get()) }
 }

@@ -14,9 +14,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.course.checkbankcard.presentation.viewModels.MainScreenViewModel
+import com.course.domain.model.BinInfo
 import org.koin.androidx.compose.koinViewModel
 
 
@@ -27,7 +27,8 @@ import org.koin.androidx.compose.koinViewModel
 //}
 
 @Composable
-fun MainScreen(modifier: Modifier, viewModel: MainScreenViewModel= koinViewModel()){
+fun MainScreen(modifier: Modifier, viewModel: MainScreenViewModel = koinViewModel()) {
+
     var inputBinNumber by remember { mutableStateOf("") }
 
     val binInfo by viewModel.binInfo.observeAsState()
@@ -55,8 +56,8 @@ fun MainScreen(modifier: Modifier, viewModel: MainScreenViewModel= koinViewModel
             viewModel.fetchBinInfo(inputBinNumber)
         }
         binInfo?.let {
-            Log.d("mine",it.toString())
-            ShowInformationOfCard(it) }
+            ShowInformationOfCard(it)
+        }
         ErrorDisplay(errorMessage)
     }
 
@@ -64,7 +65,7 @@ fun MainScreen(modifier: Modifier, viewModel: MainScreenViewModel= koinViewModel
 
 
 @Composable
-fun InputCardNumber(inputBinNumber:String, onInputChange: (String)-> Unit){
+fun InputCardNumber(inputBinNumber: String, onInputChange: (String) -> Unit) {
 
     TextField(
         value = inputBinNumber,
@@ -90,7 +91,7 @@ fun FetchInfoButton(onClick: () -> Unit) {
 }
 
 @Composable
-fun ShowInformationOfCard(binInfo: com.course.domain.model.BinInfo){
+fun ShowInformationOfCard(binInfo: BinInfo) {
     Column {
         Text(text = "Страна: ${binInfo.country.name}")
         Text(text = "Координаты: ${binInfo.country.latitude},  ${binInfo.country.longitude}")
@@ -105,6 +106,6 @@ fun ShowInformationOfCard(binInfo: com.course.domain.model.BinInfo){
 
 @Composable
 fun ErrorDisplay(error: String?) {
-   if(error != null) Text(text = "Ошибка: $error")
+    if (error != null) Text(text = "Ошибка: $error")
     println(error)
 }

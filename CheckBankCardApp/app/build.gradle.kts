@@ -69,6 +69,12 @@ dependencies {
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
 
+
+    implementation( libs.androidx.datastore.core )// Для работы с DataStore
+    implementation (libs.androidx.datastore.preferences) // Для хранения данных
+
+
+    implementation (libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
