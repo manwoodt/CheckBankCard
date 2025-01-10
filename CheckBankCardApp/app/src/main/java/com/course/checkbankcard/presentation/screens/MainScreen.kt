@@ -1,6 +1,5 @@
 package com.course.checkbankcard.presentation.screens
 
-import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,8 +13,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.course.checkbankcard.R
 import com.course.checkbankcard.presentation.viewModels.HistoryScreenViewModel
 import com.course.checkbankcard.presentation.viewModels.MainScreenViewModel
 import com.course.domain.model.BinHistoryItem
@@ -23,17 +27,11 @@ import com.course.domain.model.BinInfo
 import org.koin.androidx.compose.koinViewModel
 
 
-//@Preview(showBackground = true)
-//@Composable
-//fun MainScreenPreview() {
-//MainScreen(Modifier,)
-//}
-
 @Composable
 fun MainScreen(
     navController: NavController,
     viewModel: MainScreenViewModel = koinViewModel(),
-    historyViewModel: HistoryScreenViewModel = koinViewModel()
+    historyViewModel: HistoryScreenViewModel = koinViewModel(),
 ) {
 
     var inputBinNumber by remember { mutableStateOf("") }
@@ -42,22 +40,12 @@ fun MainScreen(
     val errorMessage by viewModel.errorMessage.observeAsState(null)
 
 
-//    val sampleBinInfo = com.course.domain.model.BinInfo(
-//        country = com.course.domain.model.CountryInfo("Россия", 55, 37),
-//        scheme = "Visa",
-//        bank = com.course.domain.model.BankInfo(
-//            "Сбербанк",
-//            "www.sberbank.ru",
-//            "+7 800 555 55 50",
-//            "Москва"
-//        )
-//    )
-
     Column(modifier = Modifier.padding(16.dp)) {
         InputCardNumber(
             inputBinNumber = inputBinNumber,
             onInputChange = { inputBinNumber = it }
         )
+        WarningText()
 
         FetchInfoButton {
             viewModel.fetchBinInfo(inputBinNumber.trim())
@@ -84,7 +72,18 @@ fun InputCardNumber(inputBinNumber: String, onInputChange: (String) -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-        label = { Text("Введите первые 6-8 цифр номера карты (BIN/IIN)") }
+        label = { Text(stringResource(R.string.input_description)) }
+    )
+
+}
+
+@Composable
+fun WarningText() {
+    Text(
+        text = stringResource(R.string.warning),
+        color = colorResource(R.color.warning_text_color),
+        modifier = Modifier.padding(16.dp),
+        style = TextStyle(fontSize = 14.sp)
     )
 
 }
@@ -97,28 +96,29 @@ fun FetchInfoButton(onClick: () -> Unit) {
             .fillMaxWidth()
             .padding(bottom = 16.dp)
     ) {
-        Text("Получить информацию")
+        Text(stringResource(R.string.get_info_about_card))
     }
 }
 
 @Composable
 fun ShowInformationOfCard(binInfo: BinInfo) {
     Column {
-        Text(text = "Страна: ${binInfo.country.name}")
-        Text(text = "Координаты: ${binInfo.country.latitude},  ${binInfo.country.longitude}")
-        Text(text = "Тип карты: ${binInfo.scheme}")
-        Text(text = "Банк: ${binInfo.bank.name}")
-        Text(text = "Город: ${binInfo.bank.city}")
-        Text(text = "Телефон: ${binInfo.bank.phone}")
-        Text(text = "Сайт: ${binInfo.bank.url}")
+        Text(text = stringResource(id = R.string.country_label, binInfo.country.name))
+        Text(text = stringResource(id = R.string.coordinates_label, binInfo.country.latitude,
+        binInfo.country.longitude))
+        Text(text = stringResource(id = R.string.scheme_label, binInfo.scheme))
+        Text(text = stringResource(id = R.string.bank_label, binInfo.bank.name))
+        Text(text = stringResource(id = R.string.city_label, binInfo.bank.city))
+        Text(text = stringResource(id = R.string.phone_label, binInfo.bank.phone))
+        Text(text = stringResource(id = R.string.url_label, binInfo.bank.url))
     }
 }
 
 
 @Composable
 fun ErrorDisplay(error: String?) {
-    if (error != null) Text(text = "Ошибка: $error")
-    println(error)
+    if (error != null)
+        Text(text = stringResource(id = R.string.error_message, error))
 }
 
 @Composable
@@ -127,6 +127,6 @@ fun ButtonToHistoryScreen(navController: NavController) {
         onClick = { navController.navigate("history_screen") },
         modifier = Modifier.fillMaxWidth().padding(top = 16.dp)
     ) {
-        Text("Перейти к истории")
+        Text(stringResource(R.string.move_to_history))
     }
 }

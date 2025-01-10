@@ -4,12 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.ui.Modifier
 import com.course.checkbankcard.presentation.screens.AppNavigation
-import com.course.checkbankcard.presentation.screens.MainScreen
 import com.course.checkbankcard.presentation.ui.theme.CheckBankCardTheme
 
 class MainActivity : ComponentActivity() {

@@ -10,12 +10,13 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.course.checkbankcard.R
 import com.course.checkbankcard.presentation.viewModels.HistoryScreenViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -29,16 +30,16 @@ fun HistoryScreen(
 
 
     Column(modifier = Modifier.padding(16.dp)) {
-        Text("История BIN-кодов", modifier = Modifier.padding(bottom = 16.dp))
+        Text(stringResource(R.string.history_bin), modifier = Modifier.padding(bottom = 16.dp))
 
         LazyColumn(
             modifier = Modifier
-                .weight(1f) // Это позволяет списку занимать доступное пространство, оставляя место для кнопки
+                .weight(1f)
                 .fillMaxWidth()
         ) {
             items(binHistory) { item ->
                 Column(modifier = Modifier.padding(bottom = 16.dp)) {
-                    Text(text = "BIN: ${item.binNumber}")
+                    Text(text = stringResource((R.string.bin), item.binNumber))
                     ShowInformationOfCard(item.binInfo)
                     Spacer(modifier = Modifier.height(20.dp))
                 }
@@ -46,7 +47,10 @@ fun HistoryScreen(
         }
 
         errorMessage?.let {
-            Text(text = "Ошибка: $it", color = androidx.compose.ui.graphics.Color.Red)
+            Text(
+                text = stringResource(R.string.error_message,it),
+                color = androidx.compose.ui.graphics.Color.Red
+            )
         }
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -55,7 +59,7 @@ fun HistoryScreen(
             onClick = { navController.popBackStack() },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Назад")
+            Text(stringResource(R.string.back))
         }
     }
 

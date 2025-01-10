@@ -1,6 +1,5 @@
 package com.course.checkbankcard.presentation.viewModels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -28,7 +27,6 @@ class HistoryScreenViewModel(
             try {
                 dataStoreManager.loadBinHistory().collect { history ->
                     _binHistory.postValue(history)
-                    Log.d("HistoryScreenViewModel", "History loaded: $history")
                 }
             } catch (e: Exception) {
                 _errorMessage.value = "Ошибка загрузки истории: ${e.message}"
@@ -54,39 +52,4 @@ class HistoryScreenViewModel(
         }
     }
 
-//    fun addFakeData() {
-//        val sampleBinInfo = com.course.domain.model.BinInfo(
-//            country = com.course.domain.model.CountryInfo("Россия", 55, 37),
-//            scheme = "Visa",
-//            bank = com.course.domain.model.BankInfo(
-//                "Сбербанк",
-//                "www.sberbank.ru",
-//                "+7 800 555 55 50",
-//                "Москва"
-//            )
-//        )
-//
-//        val sampleBinInfo2 = com.course.domain.model.BinInfo(
-//            country = com.course.domain.model.CountryInfo("Тм", 55, 37),
-//            scheme = "МИР",
-//            bank = com.course.domain.model.BankInfo(
-//                "Яндекс",
-//                "www.sberbank.ru",
-//                "+7 800 555 55 50",
-//                "Москва"
-//            )
-//        )
-//
-//        viewModelScope.launch {
-//            val fakeData = listOf(
-//                BinHistoryItem("123456", sampleBinInfo),
-//                BinHistoryItem("654321", sampleBinInfo2)
-//            )
-//            dataStoreManager.saveBinHistory(fakeData)
-//            _binHistory.value = fakeData
-//            Log.d("HistoryScreenViewModel", "Fake data added: $fakeData")
-//        }
-
-
-//    }
 }
