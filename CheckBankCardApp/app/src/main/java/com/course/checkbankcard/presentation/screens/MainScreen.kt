@@ -1,5 +1,6 @@
 package com.course.checkbankcard.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,6 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.course.checkbankcard.presentation.viewModels.MainScreenViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -26,29 +28,35 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun MainScreen(modifier: Modifier, viewModel: MainScreenViewModel= koinViewModel()){
+    var inputBinNumber by remember { mutableStateOf("") }
 
     val binInfo by viewModel.binInfo.observeAsState()
     val errorMessage by viewModel.errorMessage.observeAsState(null)
 
 
-    val sampleBinInfo = com.course.domain.model.BinInfo(
-        country = com.course.domain.model.CountryInfo("Россия", 55, 37),
-        scheme = "Visa",
-        bank = com.course.domain.model.BankInfo(
-            "Сбербанк",
-            "www.sberbank.ru",
-            "+7 800 555 55 50",
-            "Москва"
-        )
-    )
-    Column(modifier) {
-        InputCardNumber()
+//    val sampleBinInfo = com.course.domain.model.BinInfo(
+//        country = com.course.domain.model.CountryInfo("Россия", 55, 37),
+//        scheme = "Visa",
+//        bank = com.course.domain.model.BankInfo(
+//            "Сбербанк",
+//            "www.sberbank.ru",
+//            "+7 800 555 55 50",
+//            "Москва"
+//        )
+//    )
 
-        val binNumber = "4567 3445"
+    Column(modifier) {
+        InputCardNumber(
+            inputBinNumber = inputBinNumber,
+            onInputChange = { inputBinNumber = it }
+        )
+
         FetchInfoButton {
-            viewModel.fetchBinInfo(binNumber)
+            viewModel.fetchBinInfo(inputBinNumber)
         }
-        binInfo?.let { ShowInformationOfCard(it) }
+        binInfo?.let {
+            Log.d("mine",it.toString())
+            ShowInformationOfCard(it) }
         ErrorDisplay(errorMessage)
     }
 
@@ -56,17 +64,15 @@ fun MainScreen(modifier: Modifier, viewModel: MainScreenViewModel= koinViewModel
 
 
 @Composable
-fun InputCardNumber(){
-
-    var text by remember { mutableStateOf("") }
+fun InputCardNumber(inputBinNumber:String, onInputChange: (String)-> Unit){
 
     TextField(
-        value = text,
-        onValueChange = {text = it},
+        value = inputBinNumber,
+        onValueChange = onInputChange,
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-        label = { Text("Input number of card") }
+        label = { Text("Enter the first 6 to 8 digits of a card number (BIN/IIN)") }
     )
 
 }
