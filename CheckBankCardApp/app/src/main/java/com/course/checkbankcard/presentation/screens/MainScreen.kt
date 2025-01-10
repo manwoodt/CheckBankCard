@@ -13,10 +13,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.course.checkbankcard.presentation.viewModels.MainScreenViewModel
-import org.koin.viewmodel.getViewModelKey
+import org.koin.androidx.compose.koinViewModel
+
 
 //@Preview(showBackground = true)
 //@Composable
@@ -25,7 +25,7 @@ import org.koin.viewmodel.getViewModelKey
 //}
 
 @Composable
-fun MainScreen(modifier: Modifier, viewModel: MainScreenViewModel= getViewModel()){
+fun MainScreen(modifier: Modifier, viewModel: MainScreenViewModel= koinViewModel()){
 
     val binInfo by viewModel.binInfo.observeAsState()
     val errorMessage by viewModel.errorMessage.observeAsState(null)
@@ -100,4 +100,5 @@ fun ShowInformationOfCard(binInfo: com.course.domain.model.BinInfo){
 @Composable
 fun ErrorDisplay(error: String?) {
    if(error != null) Text(text = "Ошибка: $error")
+    println(error)
 }

@@ -54,6 +54,7 @@ composeCompiler {
     reportsDestination = layout.buildDirectory.dir("compose_compiler")
 
 }
+val koin_version = "4.0.0"
 
 dependencies {
     implementation(project(":domain"))
@@ -61,8 +62,10 @@ dependencies {
 
     implementation (libs.koin.core)
     implementation (libs.koin.android)
+
     implementation (libs.koin.androidx.compose)
-    implementation (libs.koin.androidx.viewmodel)
+    implementation(libs.koin.androidx.compose.navigation)
+
     implementation (libs.retrofit)
     implementation (libs.converter.gson)
 
