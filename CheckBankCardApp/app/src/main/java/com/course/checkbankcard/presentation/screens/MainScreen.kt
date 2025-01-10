@@ -48,7 +48,7 @@ fun MainScreen(
         WarningText()
 
         FetchInfoButton {
-            viewModel.fetchBinInfo(inputBinNumber.trim())
+            viewModel.fetchBinInfo(inputBinNumber)
         }
         binInfo?.let {
             ShowInformationOfCard(it)
@@ -68,7 +68,9 @@ fun InputCardNumber(inputBinNumber: String, onInputChange: (String) -> Unit) {
 
     TextField(
         value = inputBinNumber,
-        onValueChange = onInputChange,
+        onValueChange = {
+            onInputChange(it.replace(" ",""))
+                        },
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
