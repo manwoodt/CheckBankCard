@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface BinInfoDao {
@@ -12,7 +13,7 @@ interface BinInfoDao {
     suspend fun insertBinInfo(binInfo: BinInfoEntity)
 
     @Query("SELECT * FROM bin_info ORDER BY uid DESC")
-    suspend fun getAllBinInfo():List<BinInfoEntity>
+    suspend fun getAllBinInfo(): Flow<List<BinInfoEntity>>
 
     @Delete
    suspend fun deleteBinInfo(binInfo:BinInfoEntity)

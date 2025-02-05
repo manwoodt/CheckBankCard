@@ -10,11 +10,10 @@ import com.course.domain.model.CountryInfo
 
 @Entity(tableName = "bin_info")
 data class BinInfoEntity(
-    //primarykey =  id или bin?
     @PrimaryKey(autoGenerate = true) val uid:Int = 0,
     val bin: String,
     @Embedded(prefix = "country_")val country : CountryInfo,
-    val scheme : String?,
+    val scheme : String,
     @Embedded(prefix = "bank_")val bank : BankInfo
 
 

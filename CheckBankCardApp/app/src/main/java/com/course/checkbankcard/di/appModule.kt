@@ -22,7 +22,8 @@ val appModule = module {
             .create(BinApiService::class.java)
     }
 
-    single<BinRepository> { BinRepositoryImpl(get()) }
+
+    single<BinRepository> { BinRepositoryImpl(get(),get ()) }
     factory { GetBinInfoUseCase(get()) }
 
     single { DataStoreManager(get()) }
