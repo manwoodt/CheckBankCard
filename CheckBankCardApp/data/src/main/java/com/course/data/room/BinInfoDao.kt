@@ -4,15 +4,14 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import com.course.domain.model.BinInfo
 
 @Dao
-interface BinDao {
+interface BinInfoDao {
     @Insert
     // TODO обработать конфликтные операции
     suspend fun insertBinInfo(binInfo: BinInfoEntity)
 
-    @Query("SELECT * FROM bin_info ORDER BY uid")
+    @Query("SELECT * FROM bin_info ORDER BY uid DESC")
     suspend fun getAllBinInfo():List<BinInfoEntity>
 
     @Delete
