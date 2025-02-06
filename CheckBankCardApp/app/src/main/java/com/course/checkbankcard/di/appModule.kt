@@ -1,11 +1,15 @@
 package com.course.checkbankcard.di
 
+
+import androidx.room.Room
 import com.course.checkbankcard.presentation.viewModels.HistoryScreenViewModel
 import com.course.checkbankcard.presentation.viewModels.MainScreenViewModel
-import com.course.data.DataStoreManager
 import com.course.data.api.BinApiService
 import com.course.data.repositoryImpl.BinRepositoryImpl
+import com.course.data.room.AppDatabase
+import com.course.data.room.BinInfoDao
 import com.course.domain.repository.BinRepository
+import com.course.domain.usecases.GetBinHistoryUseCase
 import com.course.domain.usecases.GetBinInfoUseCase
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -22,10 +26,19 @@ val appModule = module {
             .create(BinApiService::class.java)
     }
 
-    single<BinRepository> { BinRepositoryImpl(get()) }
-    factory { GetBinInfoUseCase(get()) }
+    single {
+        Room.databaseBuilder(get(), AppDatabase::class.java, "app_database")
+            .fallbackToDestructiveMigration()
+            .build()
+    }
 
-    single { DataStoreManager(get()) }
+    single<BinInfoDao>{get<AppDatabase>().binInfoDao()}
+
+    single<BinRepository> { BinRepositoryImpl(get(),get ()) }
+
+    factory { GetBinInfoUseCase(get()) }
+    factory { GetBinHistoryUseCase(get()) }
+
 
     viewModel { MainScreenViewModel(get()) }
     viewModel { HistoryScreenViewModel(get()) }

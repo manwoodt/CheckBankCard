@@ -1,5 +1,6 @@
 package com.course.checkbankcard.presentation.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,9 +11,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -23,14 +25,14 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun HistoryScreen(
     navController: NavController,
-    viewModel: HistoryScreenViewModel = koinViewModel()
+    viewModel: HistoryScreenViewModel = koinViewModel(),
 ) {
-    val binHistory by viewModel.binHistory.observeAsState(listOf())
-    val errorMessage by viewModel.errorMessage.observeAsState(null)
+    val binHistory by viewModel.binHistory.collectAsState(listOf())
+    val errorMessage by viewModel.errorMessage.collectAsState(null)
 
 
     Column(modifier = Modifier.padding(16.dp)) {
-        Text(stringResource(R.string.history_bin), modifier = Modifier.padding(bottom = 16.dp))
+        Text(stringResource(R.string.history_bin), modifier = Modifier.padding(bottom = 16.dp, top = 16.dp))
 
         LazyColumn(
             modifier = Modifier
@@ -39,7 +41,7 @@ fun HistoryScreen(
         ) {
             items(binHistory) { item ->
                 Column(modifier = Modifier.padding(bottom = 16.dp)) {
-                    Text(text = stringResource((R.string.bin), item.binNumber))
+                    LabeledText(R.string.bin, item.binNumber)
                     ShowInformationOfCard(item.binInfo)
                     Spacer(modifier = Modifier.height(20.dp))
                 }
@@ -48,8 +50,8 @@ fun HistoryScreen(
 
         errorMessage?.let {
             Text(
-                text = stringResource(R.string.error_message,it),
-                color = androidx.compose.ui.graphics.Color.Red
+                text = stringResource(R.string.error_message, it),
+                color = Color.Red
             )
         }
 

@@ -1,5 +1,7 @@
 package com.course.checkbankcard.presentation.screens
 
+import androidx.annotation.StringRes
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -7,15 +9,21 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -31,13 +39,12 @@ import org.koin.androidx.compose.koinViewModel
 fun MainScreen(
     navController: NavController,
     viewModel: MainScreenViewModel = koinViewModel(),
-    historyViewModel: HistoryScreenViewModel = koinViewModel(),
 ) {
 
     var inputBinNumber by remember { mutableStateOf("") }
 
-    val binInfo by viewModel.binInfo.observeAsState()
-    val errorMessage by viewModel.errorMessage.observeAsState(null)
+    val binInfo by viewModel.binInfo.collectAsState()
+    val errorMessage by viewModel.errorMessage.collectAsState(null)
 
 
     Column(modifier = Modifier.padding(16.dp)) {
@@ -52,8 +59,6 @@ fun MainScreen(
         }
         binInfo?.let {
             ShowInformationOfCard(it)
-            val binHistoryItem = BinHistoryItem(binNumber = inputBinNumber, binInfo = it)
-            historyViewModel.addBinHistory(binHistoryItem)
         }
         ErrorDisplay(errorMessage)
 
@@ -69,8 +74,8 @@ fun InputCardNumber(inputBinNumber: String, onInputChange: (String) -> Unit) {
     TextField(
         value = inputBinNumber,
         onValueChange = {
-            onInputChange(it.replace(" ",""))
-                        },
+            onInputChange(it.replace(" ", ""))
+        },
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
@@ -104,23 +109,42 @@ fun FetchInfoButton(onClick: () -> Unit) {
 
 @Composable
 fun ShowInformationOfCard(binInfo: BinInfo) {
-    Column {
-        Text(text = stringResource(id = R.string.country_label, binInfo.country.name))
-        Text(text = stringResource(id = R.string.coordinates_label, binInfo.country.latitude,
-        binInfo.country.longitude))
-        Text(text = stringResource(id = R.string.scheme_label, binInfo.scheme))
-        Text(text = stringResource(id = R.string.bank_label, binInfo.bank.name))
-        Text(text = stringResource(id = R.string.city_label, binInfo.bank.city))
-        Text(text = stringResource(id = R.string.phone_label, binInfo.bank.phone))
-        Text(text = stringResource(id = R.string.url_label, binInfo.bank.url))
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(Color.LightGray)
+            .padding(16.dp)
+    ) {
+
+        LabeledText(R.string.country_label, binInfo.country.name)
+        LabeledText(R.string.coordinates_label,
+            binInfo.country.latitude + ", " + binInfo.country.longitude)
+        LabeledText(R.string.scheme_label, binInfo.scheme)
+        LabeledText(R.string.bank_label, binInfo.bank.name)
+        LabeledText(R.string.city_label, binInfo.bank.city)
+        LabeledText(R.string.phone_label, binInfo.bank.phone)
+        LabeledText(R.string.url_label, binInfo.bank.url)
+
     }
+}
+
+@Composable
+fun LabeledText(@StringRes labelRes: Int, value: String) {
+    Text(
+        text = buildAnnotatedString {
+            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold, fontSize = 18.sp)) {
+                append(stringResource(id = labelRes) + ": ")
+            }
+            append(value)
+        }
+    )
 }
 
 
 @Composable
 fun ErrorDisplay(error: String?) {
     if (error != null)
-        Text(text = stringResource(id = R.string.error_message, error))
+        Text(text = stringResource(id = R.string.error_message, error), color = Color.Red)
 }
 
 @Composable
