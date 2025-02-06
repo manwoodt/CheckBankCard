@@ -16,7 +16,7 @@ class BinRepositoryImpl(
 ) : BinRepository {
 
     override suspend fun getBinInfo(bin: String): BinInfo {
-        val response = apiService.getBinInfo(bin)
+        val response = apiService.getBinInfo(bin).toDomain()
         dao.insertBinInfo(response.toEntity(bin))
         return response
     }
