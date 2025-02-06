@@ -1,6 +1,5 @@
 package com.course.domain.usecases
 
-import com.course.domain.model.BinHistoryItem
 import com.course.domain.model.BinInfo
 import com.course.domain.repository.BinRepository
 

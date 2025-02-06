@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface BinInfoDao {
     @Insert
-    // TODO обработать конфликтные операции
     suspend fun insertBinInfo(binInfo: BinInfoEntity)
 
     @Query("SELECT * FROM bin_info ORDER BY uid DESC")

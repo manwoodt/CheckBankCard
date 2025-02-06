@@ -34,13 +34,11 @@ val appModule = module {
 
     single<BinInfoDao>{get<AppDatabase>().binInfoDao()}
 
-
     single<BinRepository> { BinRepositoryImpl(get(),get ()) }
 
     factory { GetBinInfoUseCase(get()) }
     factory { GetBinHistoryUseCase(get()) }
 
-    // single { DataStoreManager(get()) }
 
     viewModel { MainScreenViewModel(get()) }
     viewModel { HistoryScreenViewModel(get()) }

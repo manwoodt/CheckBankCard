@@ -6,19 +6,19 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun AppNavigation(){
+fun AppNavigation() {
     val navController = rememberNavController()
 
-NavHost(navController=navController, startDestination = "main_screen"){
-    composable("main_screen"){
-        MainScreen(navController)
+    NavHost(navController = navController, startDestination = "main_screen") {
+        composable("main_screen") {
+            MainScreen(navController)
+        }
+
+
+        composable("history_screen") {
+            HistoryScreen(navController)
+        }
+
     }
-
-
-    composable("history_screen"){
-        HistoryScreen(navController)
-    }
-
-}
 
 }

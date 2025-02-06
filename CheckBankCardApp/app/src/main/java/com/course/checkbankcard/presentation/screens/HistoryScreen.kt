@@ -12,7 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -24,7 +23,7 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun HistoryScreen(
     navController: NavController,
-    viewModel: HistoryScreenViewModel = koinViewModel()
+    viewModel: HistoryScreenViewModel = koinViewModel(),
 ) {
     val binHistory by viewModel.binHistory.collectAsState(listOf())
     val errorMessage by viewModel.errorMessage.collectAsState(null)
@@ -49,7 +48,7 @@ fun HistoryScreen(
 
         errorMessage?.let {
             Text(
-                text = stringResource(R.string.error_message,it),
+                text = stringResource(R.string.error_message, it),
                 color = androidx.compose.ui.graphics.Color.Red
             )
         }
