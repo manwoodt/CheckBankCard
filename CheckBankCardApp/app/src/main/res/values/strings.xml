@@ -6,14 +6,14 @@
     <string name="input_description">Введите первые 6-8 цифр номера карты (BIN/IIN)</string>
 
     <string name="error_message">Ошибка: %1$s</string>
-    <string name="country_label">Страна: %1$s</string>
-    <string name="coordinates_label">Координаты: %1$s, %2$s</string>
-    <string name="scheme_label">Тип карты: %1$s</string>
-    <string name="bank_label">Банк: %1$s</string>
-    <string name="city_label">Город: %1$s</string>
-    <string name="phone_label">Телефон: %1$s</string>
-    <string name="url_label">Сайт: %1$s</string>
-    <string name="bin">BIN: %1$s</string>
+    <string name="country_label">Страна</string>
+    <string name="coordinates_label">Координаты</string>
+    <string name="scheme_label">Тип карты</string>
+    <string name="bank_label">Банк</string>
+    <string name="city_label">Город</string>
+    <string name="phone_label">Телефон</string>
+    <string name="url_label">Сайт</string>
+    <string name="bin">BIN</string>
     <string name="history_bin">История BIN-кодов</string>
     <string name="back">Назад</string>
 </resources>
