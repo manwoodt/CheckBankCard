@@ -13,7 +13,7 @@ interface BinInfoDao {
     suspend fun insertBinInfo(binInfo: BinInfoEntity)
 
     @Query("SELECT * FROM bin_info ORDER BY uid DESC")
-    suspend fun getAllBinInfo(): Flow<List<BinInfoEntity>>
+    fun getAllBinInfo(): Flow<List<BinInfoEntity>>
 
     @Delete
    suspend fun deleteBinInfo(binInfo:BinInfoEntity)
