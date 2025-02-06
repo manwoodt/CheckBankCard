@@ -5,7 +5,7 @@
     <string name="warning">Предупреждение: количество попыток ограничено 5 шт/час</string>
     <string name="input_description">Введите первые 6-8 цифр номера карты (BIN/IIN)</string>
 
-    <string name="error_message">Ошибка: %1$s</string>
+    <string name="error_message">Ошибка! %1$s</string>
     <string name="country_label">Страна</string>
     <string name="coordinates_label">Координаты</string>
     <string name="scheme_label">Тип карты</string>
