@@ -9,18 +9,18 @@ fun BinInfoDto.toDomain(): BinInfo {
     return BinInfo(
         country = country.let {
             CountryInfo(
-                it.name ?: "Unknown name",
+                it.name ?: "Неизвестная страна",
                 it.latitude.toString(),
                 it.longitude.toString()
             )
         },
-        scheme = scheme ?: "Unknown scheme",
+        scheme = scheme ?: "Неизвестная система",
         bank = bank.let {
             BankInfo(
-                it.name ?: "Unknown name",
-                it.url ?: "Unknown url",
-                it.phone ?: "Unknown phone",
-                it.city ?: "Unknown city"
+                it.name ?: "Неизвестный банк",
+                it.url ?: "Неизвестный адрес",
+                it.phone ?: "Неизвестный телефон",
+                it.city ?: "Неизвестный город"
             )
         }
     )
