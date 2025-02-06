@@ -6,6 +6,7 @@ import com.course.data.DataStoreManager
 import com.course.data.api.BinApiService
 import com.course.data.repositoryImpl.BinRepositoryImpl
 import com.course.domain.repository.BinRepository
+import com.course.domain.usecases.GetBinHistoryUseCase
 import com.course.domain.usecases.GetBinInfoUseCase
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -25,8 +26,9 @@ val appModule = module {
 
     single<BinRepository> { BinRepositoryImpl(get(),get ()) }
     factory { GetBinInfoUseCase(get()) }
+    factory { GetBinHistoryUseCase(get()) }
 
-    single { DataStoreManager(get()) }
+   // single { DataStoreManager(get()) }
 
     viewModel { MainScreenViewModel(get()) }
     viewModel { HistoryScreenViewModel(get()) }

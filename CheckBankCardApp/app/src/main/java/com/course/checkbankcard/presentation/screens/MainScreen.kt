@@ -7,6 +7,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -30,14 +31,13 @@ import org.koin.androidx.compose.koinViewModel
 @Composable
 fun MainScreen(
     navController: NavController,
-    viewModel: MainScreenViewModel = koinViewModel(),
-    historyViewModel: HistoryScreenViewModel = koinViewModel(),
+    viewModel: MainScreenViewModel = koinViewModel()
 ) {
 
     var inputBinNumber by remember { mutableStateOf("") }
 
-    val binInfo by viewModel.binInfo.observeAsState()
-    val errorMessage by viewModel.errorMessage.observeAsState(null)
+    val binInfo by viewModel.binInfo.collectAsState()
+    val errorMessage by viewModel.errorMessage.collectAsState(null)
 
 
     Column(modifier = Modifier.padding(16.dp)) {
@@ -52,8 +52,8 @@ fun MainScreen(
         }
         binInfo?.let {
             ShowInformationOfCard(it)
-            val binHistoryItem = BinHistoryItem(binNumber = inputBinNumber, binInfo = it)
-            historyViewModel.addBinHistory(binHistoryItem)
+//            val binHistoryItem = BinHistoryItem(binNumber = inputBinNumber, binInfo = it)
+//            historyViewModel.addBinHistory(binHistoryItem)
         }
         ErrorDisplay(errorMessage)
 

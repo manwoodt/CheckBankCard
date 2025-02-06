@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
@@ -25,8 +26,8 @@ fun HistoryScreen(
     navController: NavController,
     viewModel: HistoryScreenViewModel = koinViewModel()
 ) {
-    val binHistory by viewModel.binHistory.observeAsState(listOf())
-    val errorMessage by viewModel.errorMessage.observeAsState(null)
+    val binHistory by viewModel.binHistory.collectAsState(listOf())
+    val errorMessage by viewModel.errorMessage.collectAsState(null)
 
 
     Column(modifier = Modifier.padding(16.dp)) {
