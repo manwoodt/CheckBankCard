@@ -14,7 +14,6 @@ fun AppNavigation() {
             MainScreen(navController)
         }
 
-
         composable("history_screen") {
             HistoryScreen(navController)
         }

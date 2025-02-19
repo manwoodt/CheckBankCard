@@ -1,6 +1,5 @@
 package com.course.checkbankcard.presentation.viewModels
 
-import androidx.datastore.core.IOException
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.course.domain.model.BinInfo
@@ -11,6 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
+import java.io.IOException
 
 class MainScreenViewModel(
     private val getBinInfoUseCase: GetBinInfoUseCase,

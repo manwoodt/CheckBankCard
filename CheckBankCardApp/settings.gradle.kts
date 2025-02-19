@@ -23,3 +23,4 @@ rootProject.name = "CheckBankCard"
 include(":app")
 include(":domain")
 include(":data")
+include(":presentation")

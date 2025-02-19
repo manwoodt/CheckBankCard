@@ -27,7 +27,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.course.checkbankcard.R
+import com.avito.presentation.R
 import com.course.checkbankcard.presentation.viewModels.HistoryScreenViewModel
 import com.course.checkbankcard.presentation.viewModels.MainScreenViewModel
 import com.course.domain.model.BinHistoryItem

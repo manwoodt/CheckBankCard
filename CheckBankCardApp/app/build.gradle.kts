@@ -59,6 +59,7 @@ val koin_version = "4.0.0"
 dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
+    implementation(project(":presentation"))
 
     implementation (libs.koin.core)
     implementation (libs.koin.android)
@@ -70,10 +71,6 @@ dependencies {
     implementation (libs.converter.gson)
 
 
-    implementation( libs.androidx.datastore.core )// Для работы с DataStore
-    implementation (libs.androidx.datastore.preferences) // Для хранения данных
-
-
     implementation (libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -82,7 +79,6 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
-    implementation(libs.androidx.material3)
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.androidx.room.runtime)
     testImplementation(libs.junit)

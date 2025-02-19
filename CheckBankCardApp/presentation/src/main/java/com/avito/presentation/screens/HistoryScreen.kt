@@ -1,6 +1,5 @@
 package com.course.checkbankcard.presentation.screens
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.course.checkbankcard.R
+import com.avito.presentation.R
 import com.course.checkbankcard.presentation.viewModels.HistoryScreenViewModel
 import org.koin.androidx.compose.koinViewModel
 
@@ -27,7 +26,7 @@ fun HistoryScreen(
     navController: NavController,
     viewModel: HistoryScreenViewModel = koinViewModel(),
 ) {
-    val binHistory by viewModel.binHistory.collectAsState(listOf())
+    val binHistory by viewModel.binHistory.collectAsState(initial = emptyList())
     val errorMessage by viewModel.errorMessage.collectAsState(null)
 
 
